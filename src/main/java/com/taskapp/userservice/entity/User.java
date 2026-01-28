@@ -14,19 +14,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Please enter a valid Email")
-    @NotBlank(message = "Email cannot be empty")
     @Column(nullable = false, unique = true)
     private  String email;
 
-    @NotBlank(message = "Username cannot be empty")
+
     @Column(nullable = false)
     private  String username;
 
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+
     @Column(nullable = false, length =60)
     private  String password;
+
     private Instant createdAt;
     private Instant updatedAt;
 
@@ -45,6 +43,8 @@ public class User {
     {
         this.password = password;
     }
+    public void setEmail(String email){this.email =email;}
+    public void setUsername(String username){this.username=username;}
 
     @PrePersist
     protected void onCreate() {

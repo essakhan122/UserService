@@ -24,6 +24,9 @@ public class User {
 
     @Column(nullable = false, length =60)
     private  String password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role = UserRole.DEV;
 
     private Instant createdAt;
     private Instant updatedAt;
@@ -38,6 +41,11 @@ public class User {
     public String getUsername() {
         return username;
     }
+    public String getRole() {
+        return role.name();
+    }
+
+
 
     public void setPassword(String password)
     {
@@ -45,6 +53,10 @@ public class User {
     }
     public void setEmail(String email){this.email =email;}
     public void setUsername(String username){this.username=username;}
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
 
     @PrePersist
     protected void onCreate() {

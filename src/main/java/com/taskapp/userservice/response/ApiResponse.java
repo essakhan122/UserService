@@ -1,13 +1,26 @@
 package com.taskapp.userservice.response;
 
-public class ApiResponse {
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-    private boolean success;
-    private String message;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ApiResponse<T> {
 
-    public ApiResponse(boolean success, String message) {
+    private final boolean success;
+    private final String message;
+    private final T data;
+
+    private ApiResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
+        this.data = data;
+    }
+
+    public static <T> ApiResponse<T> success(String message) {
+        return new ApiResponse<>(true, message,null);
+    }
+
+    public static <T> ApiResponse<T> failure(String message, T data) {
+        return new ApiResponse<>(false, message, data);
     }
 
     public boolean isSuccess() {
@@ -16,5 +29,9 @@ public class ApiResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public T getData() {
+        return data;
     }
 }
